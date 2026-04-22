@@ -1,0 +1,17 @@
+{
+  "skills": [
+    ".claude/skills/create-plan.md",
+    ".claude/skills/create-jira.md",
+    ".claude/skills/campaign-setup.md",
+    ".claude/skills/campaign-report.md",
+    ".claude/skills/segment-builder.md",
+    ".claude/skills/event-tracker.md"
+  ],
+  "includeFiles": [
+    "knowledge/team-config.md",
+    "knowledge/campaign-types.md",
+    "knowledge/super-app-events.md",
+    "knowledge/clevertap-api-reference.md",
+    "knowledge/event-tracking-guide.md"
+  ]
+}
