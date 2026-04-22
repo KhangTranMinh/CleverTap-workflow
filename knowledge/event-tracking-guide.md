@@ -1,6 +1,6 @@
-# Event Tracking Implementation Guide
+# Hướng Dẫn Triển Khai Event Tracking
 
-## SDK Setup
+## Cài Đặt SDK
 
 ### Android (Kotlin)
 ```kotlin
@@ -8,7 +8,7 @@
 CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
 val cleverTap = CleverTapAPI.getDefaultInstance(context)
 
-// Identify user after login
+// Xác định user sau khi đăng nhập
 val profile = HashMap<String, Any>()
 profile["Identity"] = userId
 profile["Name"] = userName
@@ -27,7 +27,7 @@ cleverTap?.event?.push("Order Placed", props)
 // AppDelegate.didFinishLaunching
 CleverTap.autoIntegrate()
 
-// Identify user
+// Xác định user
 CleverTap.sharedInstance()?.onUserLogin([
     "Identity": userId,
     "Name": userName
@@ -42,36 +42,36 @@ CleverTap.sharedInstance()?.recordEvent("Order Placed", withProps: [
 
 ---
 
-## QA Checklist for Event Tracking
+## Checklist QA Cho Event Tracking
 
-Before going live, verify each event:
+Trước khi đưa vào production, kiểm tra từng event:
 
-- [ ] Event name matches spec exactly (case-sensitive)
-- [ ] All required properties present
-- [ ] Property types correct (string vs number vs boolean)
-- [ ] Identity set before first event (or events will be anonymous)
-- [ ] Events appear in CleverTap dashboard within 5 minutes
-- [ ] Test on both Android and iOS
-- [ ] Verify in CleverTap → Events → Live View
+- [ ] Tên event khớp chính xác với spec (phân biệt chữ hoa/thường)
+- [ ] Tất cả thuộc tính bắt buộc có mặt
+- [ ] Kiểu dữ liệu thuộc tính đúng (string, number, boolean)
+- [ ] Identity được set trước event đầu tiên (nếu không event sẽ là ẩn danh)
+- [ ] Event hiển thị trong CleverTap dashboard trong vòng 5 phút
+- [ ] Kiểm tra trên cả Android và iOS
+- [ ] Xác minh trong CleverTap → Events → Live View
 
 ---
 
-## CleverTap Dashboard Verification
+## Xác Minh Trên CleverTap Dashboard
 
 **Live View**: Dashboard → Events → Live View
-- See real-time events coming in
-- Use for QA during development
+- Xem event đến theo thời gian thực
+- Dùng để QA trong quá trình phát triển
 
 **Event Explorer**: Dashboard → Events → Event Explorer
-- Historical event volume
-- Property breakdown
+- Lịch sử khối lượng event
+- Phân tích theo thuộc tính
 
 **Funnel Analysis**: Dashboard → Analytics → Funnels
-- Build: Home Viewed → Cart Viewed → Checkout Started → Order Placed
+- Xây dựng: Home Viewed → Cart Viewed → Checkout Started → Order Placed
 
 ---
 
-## Deep Link Schema
+## Schema Deep Link
 
 ```
 app://food/home
@@ -84,34 +84,34 @@ app://wallet
 app://profile
 ```
 
-iOS: Requires Universal Links setup + Associated Domains entitlement
-Android: Requires intent-filter in AndroidManifest.xml
+iOS: Cần cài đặt Universal Links + entitlement Associated Domains
+Android: Cần intent-filter trong AndroidManifest.xml
 
 ---
 
-## Push Notification Setup
+## Cài Đặt Push Notification
 
 ### Android FCM
-1. Create Firebase project → Download `google-services.json`
-2. Add to CleverTap Dashboard: Settings → Mobile Push → Android
-3. Paste FCM Server Key
+1. Tạo Firebase project → Tải `google-services.json`
+2. Thêm vào CleverTap Dashboard: Settings → Mobile Push → Android
+3. Dán FCM Server Key
 
 ### iOS APNs
-1. Generate APNs Auth Key (p8) in Apple Developer portal
-2. Upload to CleverTap: Settings → Mobile Push → iOS
-3. Add Push capability in Xcode + enable background modes
+1. Tạo APNs Auth Key (p8) trong Apple Developer portal
+2. Upload lên CleverTap: Settings → Mobile Push → iOS
+3. Thêm Push capability trong Xcode + bật background modes
 
-### Testing Push
+### Kiểm Thử Push
 - CleverTap Dashboard → Messages → Test Push
-- Enter device's CleverTap ID (found in SDK debug logs)
+- Nhập CleverTap ID của thiết bị (tìm trong SDK debug log)
 
 ---
 
-## Common Tracking Mistakes to Avoid
+## Các Lỗi Tracking Thường Gặp Cần Tránh
 
-1. **Sending events before identity**: Always call `onUserLogin` first
-2. **Wrong data types**: CleverTap distinguishes string `"150000"` from number `150000` — use numbers for metrics
-3. **Missing timestamps**: Use server-side epoch for past events; current time for live events
-4. **Duplicate events**: Don't double-fire on both client and server unless deduplicated
-5. **PII in event names**: Never put user data in event name; put it in properties
-6. **Not flushing**: On app backgrounding, call `flush()` to ensure events are sent
+1. **Gửi event trước khi set identity**: Luôn gọi `onUserLogin` trước
+2. **Sai kiểu dữ liệu**: CleverTap phân biệt string `"150000"` với number `150000` — dùng number cho các chỉ số
+3. **Thiếu timestamp**: Dùng epoch phía server cho event quá khứ; thời gian hiện tại cho event live
+4. **Event trùng lặp**: Không bắn cả client lẫn server trừ khi có deduplication
+5. **PII trong tên event**: Không bao giờ đặt dữ liệu user vào tên event; đặt vào thuộc tính
+6. **Không flush**: Khi app vào nền, gọi `flush()` để đảm bảo event được gửi đi

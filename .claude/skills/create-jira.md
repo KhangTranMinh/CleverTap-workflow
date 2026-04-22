@@ -1,52 +1,63 @@
 # Skill: create-jira
 
-When the user invokes `/create-jira` or confirms a plan and asks to create tickets:
+Khi người dùng gọi `/create-jira` hoặc xác nhận plan và yêu cầu tạo ticket:
 
-## Step 1 — Read the Plan
+## Bước 1 — Đọc Kế Hoạch
 
-Read the plan file the user confirmed. If they didn't specify which file, list files in `plans/` and ask.
+Đọc `plan.md` trong thư mục plan mà người dùng đã xác nhận. Nếu không chỉ định thư mục nào, liệt kê các thư mục trong `plans/` và hỏi.
 
-## Step 2 — Extract Tasks
+## Bước 2 — Trích Xuất Công Việc
 
-From the plan's Tasks section, extract each task with:
-- Title
-- Description (from plan context)
-- Assignee (Minh / Linh / Duc)
-- Story points
-- Labels: `clevertap`, `crm`, and one of `campaign` / `tracking` / `engineering`
-- Epic link (use plan name as epic)
-- Due date (from plan timeline)
+Từ phần Công việc trong plan, trích xuất mỗi task với:
+- Tiêu đề
+- Mô tả (từ nội dung plan)
+- Người thực hiện (Minh / Linh / Đức)
+- Story point
+- Label: `clevertap`, `crm`, và một trong `campaign` / `tracking` / `engineering`
+- Epic link (dùng tên plan làm epic)
+- Ngày deadline (từ timeline plan)
 
-## Step 3 — Create Tickets
+## Bước 3 — Tạo Ticket
 
-Run the Jira creation script:
+Chạy script tạo Jira:
 ```bash
 cd /Users/khangtran/Documents/CleverTap-workflow
-python3 scripts/create_jira_tickets.py --plan plans/<filename>.md
+python3 scripts/create_jira_tickets.py --plan plans/<tên-thư-mục>/plan.md
 ```
 
-If the script is not yet configured (missing `.env`), tell the user:
+Nếu script chưa được cấu hình (thiếu `.env`), thông báo cho người dùng:
 
-> To create Jira tickets, I need your Jira credentials. Please fill in `scripts/.env`:
+> Để tạo Jira ticket, tôi cần thông tin đăng nhập Jira. Vui lòng điền vào `scripts/.env`:
 > ```
 > JIRA_URL=https://yourcompany.atlassian.net
 > JIRA_EMAIL=your@email.com
 > JIRA_API_TOKEN=your-api-token
 > JIRA_PROJECT_KEY=CRM
 > ```
-> Then run: `python3 scripts/create_jira_tickets.py --plan plans/<file>.md`
+> Sau đó chạy: `python3 scripts/create_jira_tickets.py --plan plans/<thư-mục>/plan.md`
 
-## Step 4 — Report Results
+## Bước 4 — Ghi jira_tickets.md và Cập Nhật history.md
 
-After tickets are created, show a summary table:
+Tạo file `jira_tickets.md` trong thư mục plan:
 
-| Ticket | Title | Assignee | Points | Due |
-|--------|-------|----------|--------|-----|
-| CRM-123 | ... | Minh | 3 | ... |
+```markdown
+# Jira Tickets — [Tên Campaign]
 
-Then ask: "Do you want me to set up the campaigns in CleverTap using the API scripts? I can automate the campaign creation based on this plan."
+**Epic**: [key]
+**Ngày tạo**: YYYY-MM-DD HH:MM
 
-## Step 5 — Offer Automation
+| Ticket | Tiêu đề | Người thực hiện | Điểm | Deadline | Trạng thái |
+|--------|---------|-----------------|------|----------|------------|
+| CRM-XX | ... | Minh | 2 | YYYY-MM-DD | To Do |
+```
 
-If user says yes → use `/campaign-setup`
-If user says no → remind them the plan is at `plans/<file>.md` and tickets are created
+Cập nhật dòng tương ứng trong `history.md` với Jira Epic key và đổi trạng thái thành `Đã xác nhận`.
+
+## Bước 5 — Báo Cáo & Đề Xuất Tự Động
+
+Hiển thị bảng tóm tắt ticket, rồi hỏi:
+
+> Bạn có muốn tôi setup campaign trên CleverTap tự động qua API script không? Tôi có thể tạo segment và campaign dựa trên kế hoạch này.
+
+Nếu có → dùng `/campaign-setup`
+Nếu không → nhắc người dùng kế hoạch ở `plans/<thư-mục>/plan.md` và ticket đã được tạo

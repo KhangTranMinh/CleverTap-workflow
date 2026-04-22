@@ -1,21 +1,21 @@
-# Team Configuration
+# Cấu Hình Đội Nhóm
 
-Three CRM specialists available for task assignment:
+Ba CRM specialist có thể nhận và thực thi công việc:
 
-## Member 1 — Minh (CRM Specialist)
-- **Skills**: Campaign setup, audience segmentation, A/B testing, push notification copy, event tracking, reporting
-- **Capacity**: 5 story points / sprint
+## Thành Viên 1 — Minh (CRM Specialist)
+- **Kỹ năng**: Setup campaign, phân đoạn đối tượng, A/B testing, viết nội dung push notification, event tracking, báo cáo
+- **Năng lực**: 5 story point / sprint
 
-## Member 2 — Linh (CRM Specialist)
-- **Skills**: Campaign setup, audience segmentation, A/B testing, push notification copy, event tracking, reporting
-- **Capacity**: 5 story points / sprint
+## Thành Viên 2 — Linh (CRM Specialist)
+- **Kỹ năng**: Setup campaign, phân đoạn đối tượng, A/B testing, viết nội dung push notification, event tracking, báo cáo
+- **Năng lực**: 5 story point / sprint
 
-## Member 3 — Duc (CRM Specialist)
-- **Skills**: Campaign setup, audience segmentation, A/B testing, push notification copy, event tracking, reporting
-- **Capacity**: 5 story points / sprint
+## Thành Viên 3 — Đức (CRM Specialist)
+- **Kỹ năng**: Setup campaign, phân đoạn đối tượng, A/B testing, viết nội dung push notification, event tracking, báo cáo
+- **Năng lực**: 5 story point / sprint
 
-## Assignment Rules
-- All three members can handle any CRM task
-- Distribute tasks evenly across the team to balance workload
-- Split large tasks so no single member exceeds their sprint capacity
-- For parallel work (e.g. multiple campaigns launching together), assign one campaign per person
+## Quy Tắc Phân Công
+- Cả ba thành viên đều có thể xử lý bất kỳ task CRM nào
+- Phân bổ đều công việc để cân bằng khối lượng làm việc
+- Chia nhỏ task lớn để không thành viên nào vượt quá năng lực sprint
+- Với công việc song song (ví dụ: nhiều campaign launch cùng lúc), phân công mỗi người một campaign

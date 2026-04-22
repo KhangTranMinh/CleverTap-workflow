@@ -1,75 +1,75 @@
 # Skill: create-plan
 
-When the user invokes `/create-plan` or asks to create/generate a plan, follow these steps:
+Khi người dùng gọi `/create-plan` hoặc yêu cầu tạo/lập kế hoạch, thực hiện các bước sau:
 
-## Step 1 — Gather Requirements
+## Bước 1 — Thu Thập Yêu Cầu
 
-If the user hasn't provided enough detail, ask these questions (all at once, not one by one):
-- **Goal**: What is the business objective? (e.g., re-engage churned users, boost food orders, increase ride frequency)
-- **Audience**: Who is the target? (e.g., users inactive for 30 days, new users, food-only users)
-- **Channel**: Push, in-app, email, SMS, or multi-channel?
-- **Timeline**: When should this launch? Any deadline?
-- **Success metric**: How will we measure success? (conversion event, CTR, revenue)
+Nếu người dùng chưa cung cấp đủ thông tin, hỏi tất cả cùng một lúc (không hỏi từng câu):
+- **Mục tiêu**: Mục tiêu kinh doanh là gì? (ví dụ: kéo lại user rời bỏ, tăng đơn đồ ăn, tăng tần suất đặt xe)
+- **Đối tượng**: Ai là mục tiêu? (ví dụ: user không hoạt động 30 ngày, user mới, user chỉ dùng đồ ăn)
+- **Kênh**: Push, in-app, email, SMS, hay đa kênh?
+- **Thời gian**: Khi nào launch? Có deadline không?
+- **Chỉ số thành công**: Đo lường thành công bằng gì? (conversion event, CTR, doanh thu)
 
-If the user's request clearly answers these, skip directly to Step 2.
+Nếu yêu cầu đã trả lời rõ các câu trên, bỏ qua và đi thẳng vào Bước 2.
 
-## Step 2 — Save the Request
+## Bước 2 — Lưu Yêu Cầu
 
-Create a folder at `plans/YYYY-MM-DD-HHMM-{slug}/` using today's date, current time (24h HHMM), and a short slug (lowercase, hyphens).
+Tạo thư mục tại `plans/YYYY-MM-DD-HHMM-{slug}/` với ngày hôm nay, giờ hiện tại (24h HHMM), và slug ngắn (chữ thường, dấu gạch ngang).
 
-Inside the folder create `request.md` capturing the user's original ask verbatim, plus any clarifications exchanged:
+Bên trong thư mục tạo `request.md` ghi lại nguyên văn yêu cầu và các làm rõ:
 
 ```markdown
-# Request
+# Yêu Cầu
 
-**Date**: YYYY-MM-DD HH:MM
-**Requested by**: (user)
+**Ngày**: YYYY-MM-DD HH:MM
+**Người yêu cầu**: (người dùng)
 
-## Original Request
-<paste the user's exact words here>
+## Yêu Cầu Ban Đầu
+<dán nguyên văn lời của người dùng vào đây>
 
-## Clarifications
-<any follow-up questions and answers, or "None" if request was clear>
+## Làm Rõ
+<các câu hỏi và trả lời tiếp theo, hoặc "Không có" nếu yêu cầu đã rõ>
 ```
 
-## Step 3 — Generate the Plan
+## Bước 3 — Lập Kế Hoạch
 
-Inside the same folder create `plan.md` using `templates/campaign-plan-template.md` filled in completely.
+Trong cùng thư mục, tạo `plan.md` dùng `templates/campaign-plan-template.md` điền đầy đủ.
 
-The plan must include:
-1. **Overview** — One-paragraph summary
-2. **Goal & KPIs** — Business goal + measurable targets
-3. **Audience Segment** — CleverTap filter logic (event-based or property-based)
-4. **Campaign Details** — Channel, message copy drafts, schedule, frequency cap
-5. **Tracking Events** — New events to instrument (if any)
-6. **Tasks** — Broken down by team member (Minh/Linh/Duc) with story point estimates
-7. **Timeline** — Milestone dates
-8. **Risks & Notes** — Edge cases, dependencies
+Kế hoạch phải bao gồm:
+1. **Tổng quan** — Tóm tắt một đoạn
+2. **Mục tiêu & KPI** — Mục tiêu kinh doanh + chỉ tiêu đo lường
+3. **Audience Segment** — Logic filter CleverTap (theo event hoặc property)
+4. **Chi tiết Campaign** — Kênh, nội dung message, lịch gửi, frequency cap
+5. **Tracking Events** — Event mới cần instrument (nếu có)
+6. **Công việc** — Phân chia cho từng thành viên (Minh/Linh/Đức) kèm ước tính story point
+7. **Timeline** — Các mốc ngày
+8. **Rủi ro & Ghi chú** — Edge case, dependencies
 
-## Step 4 — Update history.md
+## Bước 4 — Cập Nhật history.md
 
-Append a row to `history.md` at the project root (create it if missing):
+Thêm một dòng vào `history.md` ở thư mục gốc (tạo file nếu chưa có):
 
 ```
-| YYYY-MM-DD HH:MM | [Campaign Name](plans/YYYY-MM-DD-HHMM-{slug}/plan.md) | — | Planning |
+| YYYY-MM-DD HH:MM | [Tên Campaign](plans/YYYY-MM-DD-HHMM-{slug}/plan.md) | — | Đang lập kế hoạch |
 ```
 
-Columns: `Date | Initiative | Jira Epic | Status`
-Status progression: `Planning` → `Confirmed` → `In Progress` → `Launched` → `Reported`
+Cột: `Ngày | Sáng kiến | Jira Epic | Trạng thái`
+Tiến trình: `Đang lập kế hoạch` → `Đã xác nhận` → `Đang thực hiện` → `Đã launch` → `Đã báo cáo`
 
-## Step 5 — Confirm with User
+## Bước 5 — Xác Nhận Với Người Dùng
 
-After writing the files, tell the user:
+Sau khi ghi file, thông báo:
 
-> Plan saved to `plans/YYYY-MM-DD-HHMM-{slug}/plan.md`. Please review and edit it, then confirm when ready so I can create Jira tickets.
+> Kế hoạch đã lưu tại `plans/YYYY-MM-DD-HHMM-{slug}/plan.md`. Vui lòng xem và chỉnh sửa file, sau đó xác nhận để tôi tạo Jira ticket.
 
-Do NOT proceed to Jira creation automatically. Wait for explicit user confirmation.
+KHÔNG tự động tạo Jira ticket. Chờ người dùng xác nhận rõ ràng.
 
-## Guidelines
+## Hướng Dẫn
 
-- Cross-reference `knowledge/campaign-types.md` for channel recommendations
-- Cross-reference `knowledge/super-app-events.md` for event names
-- Cross-reference `knowledge/team-config.md` for task assignment
-- Story points: 1 = 1–2 hours, 2 = half day, 3 = full day, 5 = 2–3 days
-- Distribute tasks evenly across Minh, Linh, and Duc — all three are CRM specialists with equal capability
-- Always include a QA/testing task before launch
+- Tham khảo `knowledge/campaign-types.md` để gợi ý kênh phù hợp
+- Tham khảo `knowledge/super-app-events.md` để dùng đúng tên event
+- Tham khảo `knowledge/team-config.md` để phân công công việc
+- Story point: 1 = 1–2 giờ, 2 = nửa ngày, 3 = cả ngày, 5 = 2–3 ngày
+- Phân bổ đều công việc cho Minh, Linh và Đức — cả 3 đều là CRM specialist
+- Luôn có task QA/kiểm thử trước khi launch

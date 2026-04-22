@@ -1,57 +1,57 @@
 # Skill: segment-builder
 
-When the user invokes `/segment-builder` or asks to define/build an audience segment:
+Khi người dùng gọi `/segment-builder` hoặc yêu cầu định nghĩa/xây dựng audience segment:
 
-## Step 1 — Understand the Audience
+## Bước 1 — Hiểu Đối Tượng
 
-Ask (if not already provided):
-- Who are we targeting? (describe in plain language)
-- Which vertical? (food / ride / both)
-- Behavioral criteria? (events they did/didn't do, frequency)
-- Recency? (last 7 days / 30 days / ever)
-- Profile properties? (city, user type, payment method)
+Hỏi (nếu chưa được cung cấp):
+- Chúng ta nhắm đến ai? (mô tả bằng ngôn ngữ thông thường)
+- Ngành dọc nào? (đồ ăn / xe / cả hai)
+- Tiêu chí hành vi? (event đã làm/chưa làm, tần suất)
+- Gần đây? (7 ngày / 30 ngày / tất cả thời gian)
+- Thuộc tính profile? (thành phố, loại user, phương thức thanh toán)
 
-## Step 2 — Translate to CleverTap Filters
+## Bước 2 — Chuyển Đổi Sang CleverTap Filter
 
-Build the segment definition using CleverTap's filter system:
+Xây dựng định nghĩa segment bằng hệ thống filter của CleverTap:
 
-### Event-Based Filters
+### Filter Theo Event
 ```
-Did event "Order Placed" at least 3 times in last 30 days
-AND Did NOT do event "Order Placed" in last 7 days
+Đã thực hiện event "Order Placed" ít nhất 3 lần trong 30 ngày qua
+VÀ Chưa thực hiện event "Order Placed" trong 7 ngày qua
 ```
 
-### Property-Based Filters
+### Filter Theo Property
 ```
 User Property: custom_user_type = "food_only"
 User Property: total_food_orders > 5
 ```
 
-### Combined Example — Churned Food Power Users
+### Ví Dụ Kết Hợp — User Đồ Ăn Tích Cực Đã Rời Bỏ
 ```
-Did "Order Placed" at least 5 times (ever)
-AND Did NOT do "Order Placed" in last 30 days
-AND User Property: total_food_orders > 5
+Đã thực hiện "Order Placed" ít nhất 5 lần (tất cả thời gian)
+VÀ Chưa thực hiện "Order Placed" trong 30 ngày qua
+VÀ User Property: total_food_orders > 5
 ```
 
-## Step 3 — Estimate Segment Size
+## Bước 3 — Ước Tính Kích Thước Segment
 
-Advise user to check size in CleverTap dashboard:
-Dashboard → Segments → Create → Apply filters → Check estimated count
+Hướng dẫn người dùng kiểm tra kích thước trên CleverTap dashboard:
+Dashboard → Segments → Create → Áp dụng filter → Xem ước tính số lượng
 
-Rule of thumb:
-- < 1,000 users: Too small for statistical significance in A/B tests
-- 1,000–10,000: Good for targeted campaigns
-- 10,000+: Consider further segmentation for personalization
+Quy tắc chung:
+- < 1.000 user: Quá nhỏ để có ý nghĩa thống kê trong A/B test
+- 1.000–10.000: Tốt cho campaign nhắm mục tiêu
+- 10.000+: Cân nhắc phân đoạn thêm để cá nhân hóa
 
-## Step 4 — Output the Segment Spec
+## Bước 4 — Xuất Đặc Tả Segment
 
-Produce a segment specification block to include in the plan:
+Tạo khối đặc tả segment để đưa vào kế hoạch:
 
 ```yaml
 segment:
-  name: "Churned Food Power Users"
-  description: "Users with 5+ past orders but inactive 30+ days"
+  name: "User Đồ Ăn Tích Cực Đã Rời Bỏ"
+  description: "User có 5+ đơn hàng nhưng không hoạt động 30+ ngày"
   filters:
     - type: event
       event: "Order Placed"
@@ -66,12 +66,12 @@ segment:
       property: total_food_orders
       operator: greater_than
       value: 5
-  estimated_size: ~50,000
+  estimated_size: ~50.000
 ```
 
-## Step 5 — Suggest Personalization
+## Bước 5 — Gợi Ý Cá Nhân Hóa
 
-Based on segment, recommend message personalization:
-- Use `{{name}}` for greeting
-- Reference last order: `{{last_order_restaurant}}`
-- Use location-specific offers if geo property available
+Dựa trên segment, đề xuất cá nhân hóa nội dung message:
+- Dùng `{{name}}` cho lời chào
+- Tham chiếu đơn hàng gần nhất: `{{last_order_restaurant}}`
+- Dùng ưu đãi theo vị trí nếu có thuộc tính địa lý

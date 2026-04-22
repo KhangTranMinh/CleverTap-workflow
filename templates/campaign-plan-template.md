@@ -1,96 +1,96 @@
-# [Campaign Name]
+# [Tên Campaign]
 
-## Overview
-[One-paragraph summary of the campaign, its goal, and the expected impact]
+## Tổng Quan
+[Tóm tắt một đoạn về campaign, mục tiêu và tác động kỳ vọng]
 
 ---
 
-## Goal & KPIs
+## Mục Tiêu & KPI
 
-| Goal | Target | Measurement |
-|------|--------|-------------|
-| [e.g. Reactivate churned food users] | [e.g. 5% conversion rate] | [e.g. "Order Placed" event] |
+| Mục Tiêu | Chỉ Tiêu | Đo Lường |
+|----------|----------|---------|
+| [ví dụ: Kéo lại user đồ ăn rời bỏ] | [ví dụ: Tỷ lệ chuyển đổi 5%] | [ví dụ: Event "Order Placed"] |
 
-**Success Event**: [Event name to track conversion]
-**Baseline**: [Current metric before campaign]
+**Event Thành Công**: [Tên event để theo dõi chuyển đổi]
+**Baseline**: [Chỉ số hiện tại trước campaign]
 
 ---
 
 ## Audience Segment
 
-**Segment Name**: [Name in CleverTap]
-**Estimated Size**: [~X users]
+**Tên Segment**: [Tên trong CleverTap]
+**Ước Tính Kích Thước**: [~X user]
 
 ```yaml
 filters:
   - type: event
-    event: "[Event Name]"
+    event: "[Tên Event]"
     condition: did_not_do
     period: last_30_days
   - type: property
-    property: [property_name]
+    property: [tên_thuộc_tính]
     operator: greater_than
-    value: [value]
+    value: [giá trị]
 ```
 
 ---
 
-## Campaign Details
+## Chi Tiết Campaign
 
-**Channel**: [Push / In-App / Email / SMS]
-**Schedule**: [YYYY-MM-DD HH:MM or "Triggered on [event]"]
-**Frequency Cap**: [e.g. 1 per user]
-**Respect DND**: [Yes / No]
+**Kênh**: [Push / In-App / Email / SMS]
+**Lịch Gửi**: [YYYY-MM-DD HH:MM hoặc "Kích hoạt khi [event]"]
+**Frequency Cap**: [ví dụ: 1 lần/user]
+**Respect DND**: [Có / Không]
 
-**Title**: [Push title or email subject]
-**Body**: [Message copy]
-**CTA**: [Button text if applicable]
+**Tiêu Đề**: [Tiêu đề push hoặc chủ đề email]
+**Nội Dung**: [Nội dung message]
+**CTA**: [Văn bản nút nếu có]
 **Deep Link**: [app://...]
 
-### Variants (A/B Test)
-| Variant | Title | Body | Expected CTR |
-|---------|-------|------|-------------|
-| A (Control) | | | |
+### Biến Thể (A/B Test)
+| Biến Thể | Tiêu Đề | Nội Dung | CTR Kỳ Vọng |
+|----------|---------|---------|------------|
+| A (Kiểm soát) | | | |
 | B | | | |
 
 ---
 
 ## Tracking Events
 
-| Event | Status | Owner |
-|-------|--------|-------|
-| [New event name] | New (needs instrumentation) | Duc |
-| [Existing event] | Exists | — |
+| Event | Trạng Thái | Người Phụ Trách |
+|-------|-----------|----------------|
+| [Tên event mới] | Mới (cần instrument) | Đức |
+| [Event hiện có] | Đã có | — |
 
 ---
 
-## Tasks
+## Công Việc
 
-| Task | Description | Assignee | Points | Due Date |
-|------|-------------|----------|--------|----------|
-| Create segment in CleverTap | Build audience filters per spec above | Minh | 1 | YYYY-MM-DD |
-| Set up campaign in CleverTap | Configure push with copy, schedule, A/B | Linh | 2 | YYYY-MM-DD |
-| Instrument [event] on Android/iOS | Add SDK calls per tracking spec | Duc | 3 | YYYY-MM-DD |
-| QA event tracking | Verify events in Live View on both platforms | Minh | 2 | YYYY-MM-DD |
-| Monitor campaign post-launch | Pull 48h stats, report anomalies | Linh | 1 | YYYY-MM-DD |
+| Công Việc | Mô Tả | Người Thực Hiện | Điểm | Deadline |
+|-----------|-------|-----------------|------|----------|
+| Tạo segment trong CleverTap | Xây dựng audience filter theo spec trên | Minh | 1 | YYYY-MM-DD |
+| Setup campaign trong CleverTap | Cấu hình push với nội dung, lịch, A/B | Linh | 2 | YYYY-MM-DD |
+| Instrument [event] trên Android/iOS | Thêm SDK call theo tracking spec | Đức | 3 | YYYY-MM-DD |
+| QA event tracking | Xác minh event trong Live View trên cả hai nền tảng | Minh | 2 | YYYY-MM-DD |
+| Theo dõi sau launch | Kéo số liệu 48h, báo cáo bất thường | Linh | 1 | YYYY-MM-DD |
 
 ---
 
 ## Timeline
 
-| Milestone | Date |
-|-----------|------|
-| Plan confirmed | YYYY-MM-DD |
-| Tracking events instrumented | YYYY-MM-DD |
-| Campaign configured | YYYY-MM-DD |
+| Mốc | Ngày |
+|-----|------|
+| Xác nhận kế hoạch | YYYY-MM-DD |
+| Instrument tracking event xong | YYYY-MM-DD |
+| Cấu hình campaign xong | YYYY-MM-DD |
 | QA sign-off | YYYY-MM-DD |
 | Launch | YYYY-MM-DD |
-| First performance review | YYYY-MM-DD (48h post-launch) |
+| Review hiệu quả lần đầu | YYYY-MM-DD (48h sau launch) |
 
 ---
 
-## Risks & Notes
+## Rủi Ro & Ghi Chú
 
-- **Risk**: [e.g. Push opt-in rate is low in this segment — consider SMS fallback]
-- **Dependency**: [e.g. Requires new deep link route from Duc first]
-- **Note**: [e.g. Coordinate with product team on landing page readiness]
+- **Rủi ro**: [ví dụ: Tỷ lệ opt-in push thấp trong segment này — cân nhắc SMS dự phòng]
+- **Phụ thuộc**: [ví dụ: Cần deep link route mới từ Đức trước]
+- **Ghi chú**: [ví dụ: Phối hợp với product team về landing page]

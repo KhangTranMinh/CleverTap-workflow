@@ -1,57 +1,57 @@
 # Skill: campaign-setup
 
-When the user invokes `/campaign-setup` or asks to set up a campaign via the CleverTap API:
+Khi người dùng gọi `/campaign-setup` hoặc yêu cầu setup campaign qua CleverTap API:
 
-## Step 1 — Confirm Credentials
+## Bước 1 — Xác Nhận Thông Tin Đăng Nhập
 
-Check if `scripts/.env` exists and has CleverTap credentials:
+Kiểm tra `scripts/.env` có tồn tại và có thông tin CleverTap không:
 ```
 CLEVERTAP_ACCOUNT_ID=...
 CLEVERTAP_PASSCODE=...
 ```
 
-If missing, tell the user to fill them in before proceeding.
+Nếu thiếu, yêu cầu người dùng điền vào trước khi tiếp tục.
 
-## Step 2 — Determine What to Set Up
+## Bước 2 — Xác Định Cần Setup Gì
 
-Ask the user which plan to execute, or read the most recent confirmed plan from `plans/`.
+Hỏi người dùng muốn thực thi kế hoạch nào, hoặc đọc plan đã xác nhận gần nhất từ `plans/`.
 
-Determine what needs to be created:
-- **Segments** — if the plan defines audience filters
-- **Campaigns** — push notifications, in-app messages, etc.
-- **Both**
+Xác định cần tạo gì:
+- **Segment** — nếu plan định nghĩa audience filter
+- **Campaign** — push notification, in-app message, v.v.
+- **Cả hai**
 
-## Step 3 — Run the Setup Script
+## Bước 3 — Chạy Script Setup
 
-For segments:
+Tạo segment:
 ```bash
-python3 scripts/campaign_setup.py --plan plans/<file>.md --action create-segment
+python3 scripts/campaign_setup.py --plan plans/<thư-mục>/plan.md --action create-segment
 ```
 
-For campaigns:
+Tạo campaign:
 ```bash
-python3 scripts/campaign_setup.py --plan plans/<file>.md --action create-campaign
+python3 scripts/campaign_setup.py --plan plans/<thư-mục>/plan.md --action create-campaign
 ```
 
-For both:
+Tạo cả hai:
 ```bash
-python3 scripts/campaign_setup.py --plan plans/<file>.md --action all
+python3 scripts/campaign_setup.py --plan plans/<thư-mục>/plan.md --action all
 ```
 
-## Step 4 — Verify and Report
+## Bước 4 — Xác Minh và Báo Cáo
 
-After setup, run:
+Sau khi setup, chạy:
 ```bash
 python3 scripts/campaign_setup.py --action verify --campaign-id <id>
 ```
 
-Report back with created resource IDs and a link to the CleverTap dashboard.
+Báo cáo lại với ID tài nguyên đã tạo và link đến CleverTap dashboard.
 
-## Step 5 — Schedule Monitoring
+## Bước 5 — Lên Lịch Theo Dõi
 
-Ask: "Do you want me to check campaign performance after launch? I can pull stats using `/campaign-report`."
+Hỏi: "Bạn có muốn tôi kiểm tra hiệu quả campaign sau khi launch không? Tôi có thể kéo số liệu bằng `/campaign-report`."
 
-## Notes
-- Always create segment first, then campaign
-- For recurring campaigns, verify the cron expression before submitting
-- Transactional campaigns bypass frequency caps — confirm with user if using them
+## Lưu Ý
+- Luôn tạo segment trước, rồi mới tạo campaign
+- Với campaign lặp lại, kiểm tra cron expression trước khi submit
+- Campaign transactional bỏ qua frequency cap — xác nhận với người dùng trước khi dùng

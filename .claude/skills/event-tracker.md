@@ -1,72 +1,72 @@
 # Skill: event-tracker
 
-When the user invokes `/event-tracker` or asks to define/design event tracking:
+Khi người dùng gọi `/event-tracker` hoặc yêu cầu định nghĩa/thiết kế event tracking:
 
-## Step 1 — Understand the Feature
+## Bước 1 — Hiểu Tính Năng
 
-Ask:
-- What new feature or user flow needs tracking?
-- Platform: Android / iOS / both?
-- Do they need server-side or client-side events?
-- What decisions will this data support? (segmentation, campaign trigger, funnel analysis)
+Hỏi:
+- Tính năng hoặc luồng người dùng nào cần tracking?
+- Nền tảng: Android / iOS / cả hai?
+- Cần event phía server hay client?
+- Dữ liệu này hỗ trợ quyết định gì? (phân đoạn, campaign trigger, funnel analysis)
 
-## Step 2 — Design the Event Schema
+## Bước 2 — Thiết Kế Schema Event
 
-For each event in the flow, define:
+Với mỗi event trong luồng, định nghĩa:
 ```yaml
 event:
-  name: "Event Name"  # Title Case, matches super-app-events.md convention
-  trigger: "When user does X"
+  name: "Tên Event"  # Title Case, theo quy ước super-app-events.md
+  trigger: "Khi người dùng thực hiện X"
   platform: android, ios
   type: client-side | server-side
   properties:
-    - name: property_name
+    - name: tên_thuộc_tính
       type: string | number | boolean
       required: true | false
-      example: "example_value"
-      notes: "Additional context"
+      example: "giá_trị_ví_dụ"
+      notes: "Ghi chú bổ sung"
 ```
 
-Cross-reference `knowledge/super-app-events.md` — reuse existing events where possible, only define new ones when truly needed.
+Tham khảo `knowledge/super-app-events.md` — tái sử dụng event hiện có nếu có thể, chỉ tạo mới khi thực sự cần.
 
-## Step 3 — Generate Implementation Ticket
+## Bước 3 — Tạo Ticket Triển Khai
 
-Produce a Jira-ready task for Duc:
+Tạo task sẵn sàng cho Jira:
 
-**Title**: `[Tracking] Instrument {feature} events`
+**Tiêu đề**: `[Tracking] Instrument event cho {tính năng}`
 
-**Description**:
+**Mô tả**:
 ```
-Implement the following CleverTap events for {feature}:
+Triển khai các CleverTap event sau cho {tính năng}:
 
 Android (Kotlin):
 // Event 1
 val props = HashMap<String, Any>()
-props["property_name"] = value
-CleverTap.getDefaultInstance(context)?.event?.push("Event Name", props)
+props["tên_thuộc_tính"] = giá_trị
+CleverTap.getDefaultInstance(context)?.event?.push("Tên Event", props)
 
 iOS (Swift):
 // Event 1
-CleverTap.sharedInstance()?.recordEvent("Event Name", withProps: [
-    "property_name": value
+CleverTap.sharedInstance()?.recordEvent("Tên Event", withProps: [
+    "tên_thuộc_tính": giá_trị
 ])
 
-QA: Verify in CleverTap Dashboard → Events → Live View
+QA: Xác minh trong CleverTap Dashboard → Events → Live View
 ```
 
-## Step 4 — Generate QA Checklist
+## Bước 4 — Tạo Checklist QA
 
-Produce a QA task (assign to any available team member):
+Tạo task QA (phân công cho thành viên có sẵn):
 ```
-QA Checklist for {feature} tracking:
-[ ] Verify event fires on Android (device: Pixel/Samsung)
-[ ] Verify event fires on iOS (device: iPhone 14+)
-[ ] All required properties present with correct types
-[ ] No PII in event properties (except Identity)
-[ ] Events visible in Live View within 2 minutes
-[ ] Funnel analysis in CleverTap works as expected
+Checklist QA cho tracking {tính năng}:
+[ ] Xác minh event kích hoạt trên Android (thiết bị: Pixel/Samsung)
+[ ] Xác minh event kích hoạt trên iOS (thiết bị: iPhone 14+)
+[ ] Tất cả thuộc tính bắt buộc có mặt với đúng kiểu dữ liệu
+[ ] Không có PII trong thuộc tính event (trừ Identity)
+[ ] Event hiển thị trong Live View trong vòng 2 phút
+[ ] Funnel analysis trong CleverTap hoạt động đúng
 ```
 
-## Step 5 — Update Events Reference
+## Bước 5 — Cập Nhật Tài Liệu Event
 
-Remind user: "Once verified, add the new events to `knowledge/super-app-events.md` to keep the reference up to date."
+Nhắc người dùng: "Sau khi xác minh, hãy thêm event mới vào `knowledge/super-app-events.md` để cập nhật tài liệu tham khảo."

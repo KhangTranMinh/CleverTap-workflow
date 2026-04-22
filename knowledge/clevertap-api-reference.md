@@ -1,27 +1,27 @@
-# CleverTap REST API Reference
+# Tài Liệu Tham Khảo CleverTap REST API
 
 Base URL: `https://api.clevertap.com/1/`
 
-## Authentication
-All requests require two headers:
+## Xác Thực
+Tất cả request cần hai header:
 ```
-X-CleverTap-Account-Id: <your-account-id>
-X-CleverTap-Passcode: <your-passcode>
+X-CleverTap-Account-Id: <account-id-của-bạn>
+X-CleverTap-Passcode: <passcode-của-bạn>
 Content-Type: application/json
 ```
 
-Find credentials: CleverTap Dashboard → Settings → Integration → API Credentials
+Tìm thông tin đăng nhập: CleverTap Dashboard → Settings → Integration → API Credentials
 
-## Rate Limits
-- Upload events: 1,000 events/request, 60 req/min
-- Profile queries: 30 req/min
-- Campaign triggers: 60 req/min
+## Giới Hạn Tốc Độ
+- Upload event: 1.000 event/request, 60 req/phút
+- Truy vấn profile: 30 req/phút
+- Kích hoạt campaign: 60 req/phút
 
 ---
 
-## Events API
+## API Events
 
-### Upload Events
+### Upload Event
 `POST /upload`
 
 ```json
@@ -41,7 +41,7 @@ Find credentials: CleverTap Dashboard → Settings → Integration → API Crede
 }
 ```
 
-### Get Event Stats
+### Lấy Thống Kê Event
 `POST /counts/events.json`
 
 ```json
@@ -54,11 +54,11 @@ Find credentials: CleverTap Dashboard → Settings → Integration → API Crede
 
 ---
 
-## Profile API
+## API Profile
 
-### Get Profile
+### Lấy Profile
 `GET /profile.json?email=user@example.com`
-Or by identity: `GET /profile.json?identity=user123`
+Hoặc theo identity: `GET /profile.json?identity=user123`
 
 ### Upload Profile
 `POST /upload`
@@ -82,15 +82,15 @@ Or by identity: `GET /profile.json?identity=user123`
 
 ---
 
-## Segments / Lists API
+## API Segment / Danh Sách
 
-### Create List (Static Segment)
+### Tạo Danh Sách (Segment Tĩnh)
 `POST /lists/create.json`
 
 ```json
 {
-  "name": "Churned Food Users",
-  "description": "Users with no food order in 30 days",
+  "name": "User Đồ Ăn Rời Bỏ",
+  "description": "User chưa đặt đồ ăn trong 30 ngày",
   "source": "manual",
   "users": [
     { "identity": "user1" },
@@ -99,21 +99,21 @@ Or by identity: `GET /profile.json?identity=user123`
 }
 ```
 
-Response: `{ "status": "success", "list_id": "abc123" }`
+Kết quả: `{ "status": "success", "list_id": "abc123" }`
 
-### Get List
+### Lấy Danh Sách
 `GET /lists/get.json?list_id=abc123`
 
 ---
 
-## Campaigns API
+## API Campaign
 
-### Create Campaign (One-Time Push)
+### Tạo Campaign (Push Một Lần)
 `POST /targets/create.json`
 
 ```json
 {
-  "name": "Weekend Food Promo",
+  "name": "Khuyến Mãi Cuối Tuần",
   "where": {
     "event_name": "App Launched",
     "from": 20240101,
@@ -121,8 +121,8 @@ Response: `{ "status": "success", "list_id": "abc123" }`
   },
   "when": "2024-01-20 10:00",
   "content": {
-    "title": "Weekend Deal!",
-    "body": "Get 30% off your next food order",
+    "title": "Deal Cuối Tuần!",
+    "body": "Giảm 30% cho đơn đồ ăn tiếp theo của bạn",
     "platform_specific": {
       "android": { "deep_link": "app://food/promo?code=WEEKEND30" },
       "ios": { "deep_link": "app://food/promo?code=WEEKEND30" }
@@ -134,17 +134,17 @@ Response: `{ "status": "success", "list_id": "abc123" }`
 }
 ```
 
-### List Campaigns
+### Danh Sách Campaign
 `GET /targets/list.json?from=20240101&to=20240131`
 
-### Get Campaign Stats
+### Lấy Thống Kê Campaign
 `GET /targets/<campaign_id>/result.json`
 
-Response includes: `sent`, `delivered`, `opened`, `clicked`, `converted`
+Kết quả gồm: `sent`, `delivered`, `opened`, `clicked`, `converted`
 
 ---
 
-## Transactional Push (API-Triggered)
+## Push Giao Dịch (Kích Hoạt Qua API)
 `POST /send/push.json`
 
 ```json
@@ -155,8 +155,8 @@ Response includes: `sent`, `delivered`, `opened`, `clicked`, `converted`
   "tag_group": "default",
   "respect_frequency_caps": false,
   "content": {
-    "title": "Your order is confirmed!",
-    "body": "Order #ORD-001 is being prepared",
+    "title": "Đơn hàng của bạn đã được xác nhận!",
+    "body": "Đơn #ORD-001 đang được chuẩn bị",
     "platform_specific": {
       "android": {
         "deep_link": "app://food/orders/ORD-001"
@@ -168,12 +168,12 @@ Response includes: `sent`, `delivered`, `opened`, `clicked`, `converted`
 
 ---
 
-## Webhooks (Outbound)
-Configure in Dashboard → Settings → Integration → Webhooks
+## Webhook (Đầu Ra)
+Cấu hình tại: Dashboard → Settings → Integration → Webhooks
 
-CleverTap will POST to your endpoint on campaign events (sent, delivered, clicked, converted).
+CleverTap sẽ POST đến endpoint của bạn khi có event campaign (sent, delivered, clicked, converted).
 
-Payload example:
+Ví dụ payload:
 ```json
 {
   "event": "push_delivered",
@@ -185,11 +185,11 @@ Payload example:
 
 ---
 
-## Common Response Codes
-| Code | Meaning |
-|------|---------|
-| 200 | Success |
-| 400 | Bad request (check payload) |
-| 401 | Auth failed (check headers) |
-| 429 | Rate limit exceeded |
-| 500 | CleverTap server error |
+## Mã Phản Hồi Phổ Biến
+| Mã | Ý Nghĩa |
+|----|---------|
+| 200 | Thành công |
+| 400 | Request không hợp lệ (kiểm tra payload) |
+| 401 | Xác thực thất bại (kiểm tra header) |
+| 429 | Vượt giới hạn tốc độ |
+| 500 | Lỗi server CleverTap |
