@@ -29,12 +29,12 @@ def parse_plan(plan_path: str) -> dict:
     if title_match:
         plan["title"] = title_match.group(1).strip()
 
-    # Extract tasks section
+    # Extract tasks section (hỗ trợ cả tiếng Anh và tiếng Việt)
     tasks_section = re.search(
-        r"## Tasks\n(.*?)(?=\n## |\Z)", content, re.DOTALL
+        r"## (?:Tasks|Công Việc)\n(.*?)(?=\n## |\Z)", content, re.DOTALL
     )
     if not tasks_section:
-        print("Warning: No '## Tasks' section found in plan")
+        print("Warning: Không tìm thấy section '## Tasks' hoặc '## Công Việc' trong plan")
         return plan
 
     tasks_text = tasks_section.group(1)
@@ -51,8 +51,8 @@ def parse_plan(plan_path: str) -> dict:
         title, description, assignee, points_str, due = [
             c.strip() for c in row
         ]
-        # Skip header row
-        if title.lower() in ("task", "title", "---"):
+        # Bỏ qua header row và separator row (tiếng Anh và tiếng Việt)
+        if title.lower() in ("task", "title", "công việc") or re.match(r"^-+$", title.strip()):
             continue
         try:
             points = int(re.search(r"\d+", points_str).group())
