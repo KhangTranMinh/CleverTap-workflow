@@ -1,14 +1,14 @@
-# Request
+# Yêu Cầu
 
-**Date**: 2026-04-22 14:30
-**Requested by**: Khang
+**Ngày**: 2026-04-22 14:30
+**Người yêu cầu**: Khang
 
-## Original Request
-I want to re-engage food users who haven't ordered in a while. They used to order regularly but have gone quiet in the last month. Want to send them something to bring them back — maybe a discount.
+## Yêu Cầu Ban Đầu
+Tôi muốn kéo lại những user đồ ăn đã lâu không đặt hàng. Họ từng đặt thường xuyên nhưng đã im lặng trong tháng qua. Muốn gửi cho họ thứ gì đó để kéo họ quay lại — có thể là giảm giá.
 
-## Clarifications
-- **Audience**: Users with 3+ past orders, no order in last 30 days
-- **Channel**: Push notification
-- **Offer**: A/B test 20% vs 30% discount to find most cost-effective option
-- **Timeline**: Launch 2026-04-28, review results 48h after
-- **Success metric**: `Order Placed` event within 7 days of push
+## Làm Rõ
+- **Đối tượng**: User có 3+ đơn hàng trong quá khứ, không đặt hàng trong 30 ngày qua
+- **Kênh**: Push notification
+- **Ưu đãi**: A/B test giảm 20% vs 30% để tìm mức chi phí hiệu quả nhất
+- **Thời gian**: Launch 2026-04-28, xem kết quả sau 48h
+- **Chỉ số thành công**: Event `Order Placed` trong vòng 7 ngày sau push
